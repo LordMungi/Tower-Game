@@ -6,6 +6,9 @@ public class Generator : MonoBehaviour
     private float SPEED = 10.0f;
 
     [SerializeField] private GameObject PathObject;
+    [SerializeField] private GameObject SpawnerPoint;
+    [SerializeField] private Block BlockPrefab;
+
     private Queue<Transform> PathQueue = new Queue<Transform>();
 
     void Start()
@@ -26,5 +29,7 @@ public class Generator : MonoBehaviour
     public void CreateBlock()
     {
         Debug.Log("Create");
+        Block newBlock = Instantiate(BlockPrefab);
+        newBlock.Init(SpawnerPoint.transform.position);
     }
 }
