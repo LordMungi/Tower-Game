@@ -880,6 +880,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de3233ed68c0cf047844c74ccf5a322d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  Config: {fileID: 11400000, guid: 5fe4c774c99ade64ab1ab95d5163d6c7, type: 2}
   PathObject: {fileID: 1220598536}
   SpawnerPoint: {fileID: 214028219}
   BlockPrefab: {fileID: 3130558724198436007, guid: bb1b5a810074fa04685a15653b7351d9, type: 3}
