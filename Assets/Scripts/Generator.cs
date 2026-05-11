@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Generator : MonoBehaviour
 {
-    private float SPEED = 10.0f;
+    [SerializeField] GeneratorConfig Config;
 
     [SerializeField] private GameObject PathObject;
     [SerializeField] private GameObject SpawnerPoint;
@@ -21,7 +21,7 @@ public class Generator : MonoBehaviour
 
     void Update()
     {
-        transform.position = Vector3.MoveTowards(transform.position, PathQueue.Peek().position, SPEED * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, PathQueue.Peek().position, Config.Speed * Time.deltaTime);
         if (transform.position == PathQueue.Peek().position)
             PathQueue.Enqueue(PathQueue.Dequeue());
     }
