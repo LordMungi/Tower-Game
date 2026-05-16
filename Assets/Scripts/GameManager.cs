@@ -5,23 +5,17 @@ public class GameManager : MonoBehaviour
 {
     private GameManager() { }
 
-    private static GameManager instance;
+    public static GameManager instance { get; private set; }
 
-    private static readonly object _lock = new object();
-    
-    public static GameManager GetInstance()
+    private void Awake()
     {
         if (instance == null)
         {
-            lock (_lock)
-            {
-                if (instance == null)
-                {
-                    instance = new GameManager();
-                }
-            }
+            instance = this;
+            DontDestroyOnLoad(gameObject);
         }
-        return instance;
+        else
+            Destroy(gameObject);
     }
 
     public UnityEvent BlockCreateEvent;

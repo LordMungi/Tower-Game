@@ -29,6 +29,6 @@ public class Block : MonoBehaviour
     private void Freeze()
     {
         body.isKinematic = true;
-        GameManager.GetInstance().BlockFreezeEvent.Invoke();
+        GameManager.instance.BlockFreezeEvent.Invoke();
     }
 }
