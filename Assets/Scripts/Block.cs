@@ -4,6 +4,10 @@ public class Block : MonoBehaviour
 {
     [SerializeField] BlockConfig Config;
 
+    [Header("Broadcast Events")]
+    [SerializeField] private EventChannel BlockFreezeEvent;
+
+
     private float timer = 0f;
 
     Rigidbody body;
@@ -29,6 +33,6 @@ public class Block : MonoBehaviour
     private void Freeze()
     {
         body.isKinematic = true;
-        GameManager.instance.BlockFreezeEvent.Invoke();
+        BlockFreezeEvent?.RaiseEvent();
     }
 }

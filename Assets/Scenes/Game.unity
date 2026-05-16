@@ -163,24 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8b1c938a72b24c4dad62e9ff293060e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  BlockCreateEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1590439203}
-        m_TargetAssemblyTypeName: Generator, Assembly-CSharp
-        m_MethodName: CreateBlock
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  BlockFreezeEvent:
-    m_PersistentCalls:
-      m_Calls: []
+  BlockCreateEvent: {fileID: 11400000, guid: d92312f82ebb5f643a91350eda07d6cf, type: 2}
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -470,17 +453,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1590439203 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4664451444904177769, guid: 3b19c1a61716d174597719dd350c0991, type: 3}
-  m_PrefabInstance: {fileID: 922842553439919241}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de3233ed68c0cf047844c74ccf5a322d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
 --- !u!1001 &922842553439919241
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -505,6 +477,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: -1
       objectReference: {fileID: 0}
+    - target: {fileID: 4664451444904177769, guid: 3b19c1a61716d174597719dd350c0991, type: 3}
+      propertyPath: BlockCreateEvent
+      value: 
+      objectReference: {fileID: 11400000, guid: d92312f82ebb5f643a91350eda07d6cf, type: 2}
     - target: {fileID: 5390390159131659342, guid: 3b19c1a61716d174597719dd350c0991, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

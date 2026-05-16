@@ -18,8 +18,9 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
     }
 
-    public UnityEvent BlockCreateEvent;
-    public UnityEvent BlockFreezeEvent;
+
+    [Header("Broadcast Events")]
+    [SerializeField] private EventChannel BlockCreateEvent;
 
     void Start()
     {
@@ -29,7 +30,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
-            BlockCreateEvent.Invoke();
+            BlockCreateEvent.RaiseEvent();
     }
 
     private void MoveCamera(Vector3 position) { }

@@ -208,3 +208,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   Config: {fileID: 11400000, guid: 730768e8ebdeaad49a72344585169efc, type: 2}
+  BlockFreezeEvent: {fileID: 11400000, guid: a3b5932a415586b4c98f19fd7058c9cb, type: 2}
