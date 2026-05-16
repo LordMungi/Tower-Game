@@ -8,6 +8,6 @@ public class EventChannel : ScriptableObject
 
     public void RaiseEvent()
     {
-        OnEventTriggered.Invoke();
+        OnEventTriggered?.Invoke();
     }
 }
