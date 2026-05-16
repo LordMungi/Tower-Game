@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class BezierPath : MonoBehaviour
+public class BezierPath3D : MonoBehaviour
 {
     [SerializeField] private Transform[] ControlPoints;
 
