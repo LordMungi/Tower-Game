@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1016470216693872740}
   - component: {fileID: 3075026473189900064}
   m_Layer: 0
-  m_Name: BezierPath
+  m_Name: BezierPath3D
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
