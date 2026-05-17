@@ -22,13 +22,13 @@ public class BlockManager : MonoBehaviour
     {
         BlockCreateEvent.OnEventTriggered += CreateBlock;
         BlockDropEvent.OnEventTriggered += DropBlock;
-        BlockLandEvent.OnEventTriggered += FreezeBlock;
+        BlockLandEvent.OnEventTriggered += LandBlock;
     }
     private void OnDisable()
     {
         BlockCreateEvent.OnEventTriggered -= CreateBlock;
         BlockDropEvent.OnEventTriggered -= DropBlock;
-        BlockLandEvent.OnEventTriggered -= FreezeBlock;
+        BlockLandEvent.OnEventTriggered -= LandBlock;
     }
     private void CreateBlock()
     {
@@ -44,7 +44,7 @@ public class BlockManager : MonoBehaviour
         hookedBlock = null;
     }
 
-    private void FreezeBlock(Block b)
+    private void LandBlock(Block b)
     {
         b.Freeze();
         BlockCreateEvent.RaiseEvent();
