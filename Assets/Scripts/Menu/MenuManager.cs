@@ -34,4 +34,9 @@ public class MenuManager : MonoBehaviour
     {
         Application.Quit();
     }
+
+    public void OpenLink(string url)
+    {
+        Application.OpenURL(url);
+    }
 }
