@@ -186,6 +186,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Tower
   BlockLandEvent: {fileID: 11400000, guid: a3b5932a415586b4c98f19fd7058c9cb, type: 2}
+  BlockPerfectLandEvent: {fileID: 11400000, guid: 746f366d7bbe11643b389c60c7cf4ecc, type: 2}
   BlockSuccessfulLandEvent: {fileID: 11400000, guid: 289ee419bd0366a45a85cbb2d2a84ed5, type: 2}
   BlockFailedLandEvent: {fileID: 11400000, guid: 6a835be18b853164c8b6a0082c2fd9a9, type: 2}
 --- !u!1 &354840519
@@ -559,8 +560,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   SpawnerParent: {fileID: 786518986}
   BlockPrefab: {fileID: 3130558724198436007, guid: bb1b5a810074fa04685a15653b7351d9, type: 3}
+  perfectOffset: 0.05
   BlockSuccessfulLandEvent: {fileID: 11400000, guid: 289ee419bd0366a45a85cbb2d2a84ed5, type: 2}
+  BlockPerfectLandEvent: {fileID: 11400000, guid: 746f366d7bbe11643b389c60c7cf4ecc, type: 2}
   BlockFailedLandEvent: {fileID: 11400000, guid: 6a835be18b853164c8b6a0082c2fd9a9, type: 2}
+  BlockMissedLandEvent: {fileID: 11400000, guid: e3f1a226be457934686a9b1df95f8bc8, type: 2}
   BlockCreateEvent: {fileID: 11400000, guid: d92312f82ebb5f643a91350eda07d6cf, type: 2}
   BlockDropEvent: {fileID: 11400000, guid: fee80d922bbbd93478b5944639d0c54a, type: 2}
   BlockLandEvent: {fileID: 11400000, guid: a3b5932a415586b4c98f19fd7058c9cb, type: 2}
@@ -591,6 +595,10 @@ PrefabInstance:
       propertyPath: BlockFailedLandEvent
       value: 
       objectReference: {fileID: 11400000, guid: 6a835be18b853164c8b6a0082c2fd9a9, type: 2}
+    - target: {fileID: 1398535301729184372, guid: 3b19c1a61716d174597719dd350c0991, type: 3}
+      propertyPath: BlockPerfectLandEvent
+      value: 
+      objectReference: {fileID: 11400000, guid: 746f366d7bbe11643b389c60c7cf4ecc, type: 2}
     - target: {fileID: 5390390159131659342, guid: 3b19c1a61716d174597719dd350c0991, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

@@ -11,9 +11,13 @@ public class BlockManager : MonoBehaviour
     private float topBlockCenter;
     private float topBlockWidth;
 
+    [SerializeField] private float perfectOffset = 0.01f;
+
     [Header("Broadcast Events")]
     [SerializeField] private BlockEventChannel BlockSuccessfulLandEvent;
+    [SerializeField] private BlockEventChannel BlockPerfectLandEvent;
     [SerializeField] private BlockEventChannel BlockFailedLandEvent;
+    [SerializeField] private BlockEventChannel BlockMissedLandEvent;
 
     [Header("Listener Events")]
     [SerializeField] private EventChannel BlockCreateEvent;
@@ -55,20 +59,35 @@ public class BlockManager : MonoBehaviour
 
     private void LandBlock(Block b)
     {
-        bool isValidLanding = false;
-
-        b.Freeze();
+        float offset = Mathf.Abs(topBlockCenter - b.transform.position.x);
 
         if (TowerBlocks.Count <= 1)
-            isValidLanding = true;
-        else if (Mathf.Abs(topBlockCenter - b.transform.position.x) < topBlockWidth / 2)
-            isValidLanding = true;
-
-        if (isValidLanding)
         {
+            b.Freeze();
             topBlockCenter = b.transform.position.x;
             topBlockWidth = b.transform.lossyScale.x;
             BlockSuccessfulLandEvent.RaiseEvent(b);
+        }
+        else if (offset < perfectOffset)
+        {
+            b.Freeze();
+            b.transform.position = new Vector3(topBlockCenter, b.transform.position.y, b.transform.position.z);
+            topBlockCenter = b.transform.position.x;
+            topBlockWidth = b.transform.lossyScale.x;
+            BlockPerfectLandEvent.RaiseEvent(b);
+        }
+        else if (offset < topBlockWidth / 2)
+        {
+            b.Freeze();
+            topBlockCenter = b.transform.position.x;
+            topBlockWidth = b.transform.lossyScale.x;
+            BlockSuccessfulLandEvent.RaiseEvent(b);
+        }
+        else if (offset > topBlockWidth)
+        {
+            b.Fall();
+            Destroy(TowerBlocks.Pop().gameObject, 2f);
+            BlockMissedLandEvent.RaiseEvent(b);
         }
         else
         {
