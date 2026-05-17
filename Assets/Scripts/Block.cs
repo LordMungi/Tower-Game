@@ -22,7 +22,7 @@ public class Block : MonoBehaviour
 
     public void Fall()
     {
-        body.linearVelocity = new Vector3(0, Config.MissFallSpeed, 0);
+        body.linearVelocity = new Vector3(0, -Config.MissFallSpeed, 0);
         body.detectCollisions = false;
     }
 }
