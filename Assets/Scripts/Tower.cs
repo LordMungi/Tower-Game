@@ -3,7 +3,7 @@ using UnityEngine;
 public class Tower : MonoBehaviour
 {
     [Header("Broadcast Events")]
-    [SerializeField] private EventChannel BlockLandEvent;
+    [SerializeField] private BlockEventChannel BlockLandEvent;
 
     void Start()
     {
@@ -16,5 +16,9 @@ public class Tower : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (collision.gameObject.TryGetComponent<Block>(out Block b))
+        {
+            BlockLandEvent.RaiseEvent(b);
+        }
     }
 }

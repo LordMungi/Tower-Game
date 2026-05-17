@@ -14,4 +14,9 @@ public class Block : MonoBehaviour
     {
         body.isKinematic = false;
     }
+
+    public void Freeze()
+    {
+        body.isKinematic = true;
+    }
 }

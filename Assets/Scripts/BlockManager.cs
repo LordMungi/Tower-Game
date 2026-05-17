@@ -12,6 +12,7 @@ public class BlockManager : MonoBehaviour
     [Header("Listener Events")]
     [SerializeField] private EventChannel BlockCreateEvent;
     [SerializeField] private EventChannel BlockDropEvent;
+    [SerializeField] private BlockEventChannel BlockLandEvent;
 
     private void Awake()
     {
@@ -21,15 +22,16 @@ public class BlockManager : MonoBehaviour
     {
         BlockCreateEvent.OnEventTriggered += CreateBlock;
         BlockDropEvent.OnEventTriggered += DropBlock;
+        BlockLandEvent.OnEventTriggered += FreezeBlock;
     }
     private void OnDisable()
     {
         BlockCreateEvent.OnEventTriggered -= CreateBlock;
         BlockDropEvent.OnEventTriggered -= DropBlock;
+        BlockLandEvent.OnEventTriggered -= FreezeBlock;
     }
     private void CreateBlock()
     {
-        Debug.Log("Create");
         hookedBlock = Instantiate(BlockPrefab, SpawnerParent.transform);
     }
 
@@ -38,5 +40,10 @@ public class BlockManager : MonoBehaviour
         hookedBlock.transform.SetParent(transform);
         hookedBlock.Drop();
         Blocks.Push(hookedBlock);
+    }
+
+    private void FreezeBlock(Block b)
+    {
+        b.Freeze();
     }
 }
