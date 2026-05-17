@@ -73,7 +73,9 @@ public class BlockManager : MonoBehaviour
         else
         {
             Destroy(TowerBlocks.Pop().gameObject);
-            BlockFailedLandEvent.RaiseEvent(b);
+            if (TowerBlocks.Count > 1)
+                Destroy(TowerBlocks.Pop().gameObject);
+            BlockFailedLandEvent.RaiseEvent(TowerBlocks.Peek());
         }
         CreateBlock();
     }

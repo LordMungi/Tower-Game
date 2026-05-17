@@ -6,21 +6,26 @@ public class Crane : MonoBehaviour
 
     [Header("Listener Events")]
     [SerializeField] private BlockEventChannel BlockSuccessfulLandEvent;
+    [SerializeField] private BlockEventChannel BlockFailedLandEvent;
 
     Vector3 targetPos;
+    Vector3 camOffset;
 
     private void Awake()
     {
         targetPos = transform.position;
+        camOffset = transform.position;
     }
 
     private void OnEnable()
     {
         BlockSuccessfulLandEvent.OnEventTriggered += SetTargetPositionFromBlock;
+        BlockFailedLandEvent.OnEventTriggered += SetTargetPositionFromBlock;
     }
     private void OnDisable()
     {
         BlockSuccessfulLandEvent.OnEventTriggered -= SetTargetPositionFromBlock;
+        BlockFailedLandEvent.OnEventTriggered -= SetTargetPositionFromBlock;
     }
     void Update()
     {
@@ -32,6 +37,6 @@ public class Crane : MonoBehaviour
 
     void SetTargetPositionFromBlock(Block b)
     {
-        targetPos = transform.position + new Vector3(0, b.transform.lossyScale.y, 0);
+        targetPos = new Vector3(0, b.transform.position.y, 0) + new Vector3(0, b.transform.lossyScale.y / 2, 0) + camOffset;
     }
 }

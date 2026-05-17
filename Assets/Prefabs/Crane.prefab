@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5222610775569361449}
-  - component: {fileID: 4664451444904177769}
   - component: {fileID: 7407485327661333220}
   m_Layer: 0
   m_Name: Generator
@@ -35,22 +34,6 @@ Transform:
   - {fileID: 8024687508096380776}
   m_Father: {fileID: 5390390159131659342}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4664451444904177769
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2163535435267074447}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de3233ed68c0cf047844c74ccf5a322d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
-  Config: {fileID: 11400000, guid: 5fe4c774c99ade64ab1ab95d5163d6c7, type: 2}
-  SpawnerPoint: {fileID: 2919842228252159819}
-  BlockPrefab: {fileID: 3130558724198436007, guid: bb1b5a810074fa04685a15653b7351d9, type: 3}
-  BlockCreateEvent: {fileID: 0}
 --- !u!114 &7407485327661333220
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -95,7 +78,7 @@ Transform:
   m_GameObject: {fileID: 2480163991835314479}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 2.68, z: 5}
+  m_LocalPosition: {x: 0, y: -2, z: 6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -279,7 +262,6 @@ GameObject:
   - component: {fileID: 8024687508096380776}
   - component: {fileID: 3114915272167047122}
   - component: {fileID: 4250238663968111507}
-  - component: {fileID: 2884048053819867793}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -359,27 +341,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &2884048053819867793
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5118820364081790797}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7270550339210401972
 GameObject:
   m_ObjectHideFlags: 0
@@ -389,6 +350,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5390390159131659342}
+  - component: {fileID: 1398535301729184372}
   m_Layer: 0
   m_Name: Crane
   m_TagString: Untagged
@@ -414,6 +376,20 @@ Transform:
   - {fileID: 7986159132519494438}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1398535301729184372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7270550339210401972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f066d7dde5fe33445abaffa61588e488, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  SPEED: 10
+  BlockSuccessfulLandEvent: {fileID: 11400000, guid: 289ee419bd0366a45a85cbb2d2a84ed5, type: 2}
 --- !u!1001 &2928610171834847131
 PrefabInstance:
   m_ObjectHideFlags: 0

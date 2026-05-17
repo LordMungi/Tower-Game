@@ -7,13 +7,16 @@ public class Tower : MonoBehaviour
 
     [Header("Listener Events")]
     [SerializeField] private BlockEventChannel BlockSuccessfulLandEvent;
+    [SerializeField] private BlockEventChannel BlockFailedLandEvent;
     private void OnEnable()
     {
         BlockSuccessfulLandEvent.OnEventTriggered += SetColliderPositionFromBlock;
+        BlockFailedLandEvent.OnEventTriggered += SetColliderPositionFromBlock;
     }
     private void OnDisable()
     {
         BlockSuccessfulLandEvent.OnEventTriggered -= SetColliderPositionFromBlock;
+        BlockFailedLandEvent.OnEventTriggered -= SetColliderPositionFromBlock;
     }
 
     private void OnCollisionEnter(Collision collision)
