@@ -32,7 +32,8 @@ public class BlockManager : MonoBehaviour
     }
     private void CreateBlock()
     {
-        hookedBlock = Instantiate(BlockPrefab, SpawnerParent.transform);
+        if (!hookedBlock)
+            hookedBlock = Instantiate(BlockPrefab, SpawnerParent.transform);
     }
 
     private void DropBlock()
@@ -40,10 +41,12 @@ public class BlockManager : MonoBehaviour
         hookedBlock.transform.SetParent(transform);
         hookedBlock.Drop();
         Blocks.Push(hookedBlock);
+        hookedBlock = null;
     }
 
     private void FreezeBlock(Block b)
     {
         b.Freeze();
+        BlockCreateEvent.RaiseEvent();
     }
 }
