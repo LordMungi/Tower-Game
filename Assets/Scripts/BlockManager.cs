@@ -6,8 +6,14 @@ public class BlockManager : MonoBehaviour
     [SerializeField] private GameObject SpawnerParent;
     [SerializeField] private Block BlockPrefab;
 
-    private Stack<Block> Blocks;
+    private Stack<Block> TowerBlocks;
     private Block hookedBlock;
+    private float topBlockCenter;
+    private float topBlockWidth;
+
+    [Header("Broadcast Events")]
+    [SerializeField] private BlockEventChannel BlockSuccessfulLandEvent;
+    [SerializeField] private BlockEventChannel BlockFailedLandEvent;
 
     [Header("Listener Events")]
     [SerializeField] private EventChannel BlockCreateEvent;
@@ -16,7 +22,7 @@ public class BlockManager : MonoBehaviour
 
     private void Awake()
     {
-        Blocks = new Stack<Block>();
+        TowerBlocks = new Stack<Block>();
     }
     private void OnEnable()
     {
@@ -38,15 +44,37 @@ public class BlockManager : MonoBehaviour
 
     private void DropBlock()
     {
-        hookedBlock.transform.SetParent(transform);
-        hookedBlock.Drop();
-        Blocks.Push(hookedBlock);
-        hookedBlock = null;
+        if (hookedBlock)
+        {
+            hookedBlock.transform.SetParent(transform);
+            hookedBlock.Drop();
+            TowerBlocks.Push(hookedBlock);
+            hookedBlock = null;
+        }
     }
 
     private void LandBlock(Block b)
     {
+        bool isValidLanding = false;
+
         b.Freeze();
-        BlockCreateEvent.RaiseEvent();
+
+        if (TowerBlocks.Count <= 1)
+            isValidLanding = true;
+        else if (Mathf.Abs(topBlockCenter - b.transform.position.x) < topBlockWidth / 2)
+            isValidLanding = true;
+
+        if (isValidLanding)
+        {
+            topBlockCenter = b.transform.position.x;
+            topBlockWidth = b.transform.lossyScale.x;
+            BlockSuccessfulLandEvent.RaiseEvent(b);
+        }
+        else
+        {
+            Destroy(TowerBlocks.Pop().gameObject);
+            BlockFailedLandEvent.RaiseEvent(b);
+        }
+        CreateBlock();
     }
 }

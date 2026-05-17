@@ -5,7 +5,7 @@ public class Crane : MonoBehaviour
     [SerializeField] private float SPEED = 1f;
 
     [Header("Listener Events")]
-    [SerializeField] private BlockEventChannel BlockLandEvent;
+    [SerializeField] private BlockEventChannel BlockSuccessfulLandEvent;
 
     Vector3 targetPos;
 
@@ -16,11 +16,11 @@ public class Crane : MonoBehaviour
 
     private void OnEnable()
     {
-        BlockLandEvent.OnEventTriggered += SetTargetPositionFromBlock;
+        BlockSuccessfulLandEvent.OnEventTriggered += SetTargetPositionFromBlock;
     }
     private void OnDisable()
     {
-        BlockLandEvent.OnEventTriggered -= SetTargetPositionFromBlock;
+        BlockSuccessfulLandEvent.OnEventTriggered -= SetTargetPositionFromBlock;
     }
     void Update()
     {

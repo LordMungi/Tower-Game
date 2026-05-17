@@ -186,6 +186,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Tower
   BlockLandEvent: {fileID: 11400000, guid: a3b5932a415586b4c98f19fd7058c9cb, type: 2}
+  BlockSuccessfulLandEvent: {fileID: 11400000, guid: 289ee419bd0366a45a85cbb2d2a84ed5, type: 2}
 --- !u!1 &354840519
 GameObject:
   m_ObjectHideFlags: 0
@@ -544,7 +545,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   SPEED: 10
-  BlockLandEvent: {fileID: 11400000, guid: a3b5932a415586b4c98f19fd7058c9cb, type: 2}
+  BlockSuccessfulLandEvent: {fileID: 11400000, guid: 289ee419bd0366a45a85cbb2d2a84ed5, type: 2}
 --- !u!1 &2016776567
 GameObject:
   m_ObjectHideFlags: 0
@@ -576,6 +577,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   SpawnerParent: {fileID: 786518986}
   BlockPrefab: {fileID: 3130558724198436007, guid: bb1b5a810074fa04685a15653b7351d9, type: 3}
+  BlockSuccessfulLandEvent: {fileID: 11400000, guid: 289ee419bd0366a45a85cbb2d2a84ed5, type: 2}
+  BlockFailedLandEvent: {fileID: 11400000, guid: 6a835be18b853164c8b6a0082c2fd9a9, type: 2}
   BlockCreateEvent: {fileID: 11400000, guid: d92312f82ebb5f643a91350eda07d6cf, type: 2}
   BlockDropEvent: {fileID: 11400000, guid: fee80d922bbbd93478b5944639d0c54a, type: 2}
   BlockLandEvent: {fileID: 11400000, guid: a3b5932a415586b4c98f19fd7058c9cb, type: 2}
