@@ -4,35 +4,14 @@ public class Block : MonoBehaviour
 {
     [SerializeField] BlockConfig Config;
 
-    [Header("Broadcast Events")]
-    [SerializeField] private EventChannel BlockFreezeEvent;
-
-
-    private float timer = 0f;
-
     Rigidbody body;
     private void Awake()
     {
         body = GetComponent<Rigidbody>();
     }
-    public void Init(Vector3 position)
-    {
-        transform.position = position;
-    }
 
-    private void Update()
+    public void Drop()
     {
-        timer += Time.deltaTime;
-
-        if (timer >= Config.TimeToFreeze && body.linearVelocity == Vector3.zero && !body.isKinematic)
-        {
-            Freeze();
-        }
-    }
-
-    private void Freeze()
-    {
-        body.isKinematic = true;
-        BlockFreezeEvent?.RaiseEvent();
+        body.isKinematic = false;
     }
 }

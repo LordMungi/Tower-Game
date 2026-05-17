@@ -170,7 +170,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -208,4 +208,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   Config: {fileID: 11400000, guid: 730768e8ebdeaad49a72344585169efc, type: 2}
-  BlockFreezeEvent: {fileID: 11400000, guid: a3b5932a415586b4c98f19fd7058c9cb, type: 2}
+  BlockCreateEvent: {fileID: 11400000, guid: d92312f82ebb5f643a91350eda07d6cf, type: 2}
+  BlockDropEvent: {fileID: 11400000, guid: fee80d922bbbd93478b5944639d0c54a, type: 2}

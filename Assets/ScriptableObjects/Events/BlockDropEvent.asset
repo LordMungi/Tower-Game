@@ -9,7 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57f726341bcc09b4f9d891bcc749144f, type: 3}
-  m_Name: GeneratorConfig
-  m_EditorClassIdentifier: Assembly-CSharp::GeneratorConfig
-  <Speed>k__BackingField: 5
+  m_Script: {fileID: 11500000, guid: b11fc42cf042e8f4c80bf92ba809277f, type: 3}
+  m_Name: BlockDropEvent
+  m_EditorClassIdentifier: Assembly-CSharp::EventChannel

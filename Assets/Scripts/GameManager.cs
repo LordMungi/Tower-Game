@@ -4,8 +4,12 @@ using UnityEngine.Events;
 public class GameManager : MonoBehaviour
 {
     private GameManager() { }
-
     public static GameManager instance { get; private set; }
+
+
+    [Header("Broadcast Events")]
+    [SerializeField] private EventChannel BlockCreateEvent;
+    [SerializeField] private EventChannel BlockDropEvent;
 
     private void Awake()
     {
@@ -18,19 +22,15 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
     }
 
-
-    [Header("Broadcast Events")]
-    [SerializeField] private EventChannel BlockCreateEvent;
-
     void Start()
     {
-
+        BlockCreateEvent.RaiseEvent();
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
-            BlockCreateEvent.RaiseEvent();
+            BlockDropEvent.RaiseEvent();
     }
 
     private void MoveCamera(Vector3 position) { }
