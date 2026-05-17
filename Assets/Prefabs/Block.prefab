@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 1962665120282304483}
   - component: {fileID: 3795970087252092766}
   - component: {fileID: 5307193906462828717}
-  - component: {fileID: 7482300972906607396}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -91,27 +90,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &7482300972906607396
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2879213996124010876}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5298796249876958493
 GameObject:
   m_ObjectHideFlags: 0
@@ -172,7 +150,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!65 &2107175572987676910
 BoxCollider:
@@ -208,5 +186,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   Config: {fileID: 11400000, guid: 730768e8ebdeaad49a72344585169efc, type: 2}
-  BlockCreateEvent: {fileID: 11400000, guid: d92312f82ebb5f643a91350eda07d6cf, type: 2}
-  BlockDropEvent: {fileID: 11400000, guid: fee80d922bbbd93478b5944639d0c54a, type: 2}
