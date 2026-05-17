@@ -32,6 +32,4 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
             BlockDropEvent.RaiseEvent();
     }
-
-    private void MoveCamera(Vector3 position) { }
 }
