@@ -490,7 +490,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87a84d7b375b3784fb147c5e8dd28b1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  BlockLandEvent: {fileID: 0}
+  BlockLandEvent: {fileID: 11400000, guid: a3b5932a415586b4c98f19fd7058c9cb, type: 2}
 --- !u!64 &1926141549
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -569,6 +569,7 @@ MonoBehaviour:
   BlockPrefab: {fileID: 3130558724198436007, guid: bb1b5a810074fa04685a15653b7351d9, type: 3}
   BlockCreateEvent: {fileID: 11400000, guid: d92312f82ebb5f643a91350eda07d6cf, type: 2}
   BlockDropEvent: {fileID: 11400000, guid: fee80d922bbbd93478b5944639d0c54a, type: 2}
+  BlockLandEvent: {fileID: 11400000, guid: a3b5932a415586b4c98f19fd7058c9cb, type: 2}
 --- !u!4 &2016776569
 Transform:
   m_ObjectHideFlags: 0
@@ -686,6 +687,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2884048053819867793, guid: 3b19c1a61716d174597719dd350c0991, type: 3}
+    - {fileID: 4664451444904177769, guid: 3b19c1a61716d174597719dd350c0991, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
