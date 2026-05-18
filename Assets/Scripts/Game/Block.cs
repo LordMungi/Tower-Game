@@ -4,10 +4,13 @@ public class Block : MonoBehaviour
 {
     [SerializeField] BlockConfig Config;
 
-    Rigidbody body;
+    [SerializeField] Rigidbody body;
+    [SerializeField] Renderer model;
+    public Vector3 size;
     private void Awake()
     {
-        body = GetComponent<Rigidbody>();
+        size = model.bounds.size;
+        transform.rotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
     }
 
     public void Drop()

@@ -40,6 +40,6 @@ public class Crane : MonoBehaviour
 
     void SetTargetPositionFromBlock(Block b)
     {
-        targetPos = new Vector3(0, b.transform.position.y, 0) + new Vector3(0, b.transform.lossyScale.y / 2, 0) + camOffset;
+        targetPos = new Vector3(0, b.transform.position.y, 0) + new Vector3(0, b.size.y / 2, 0) + camOffset;
     }
 }

@@ -31,6 +31,6 @@ public class Tower : MonoBehaviour
 
     private void SetColliderPositionFromBlock(Block b)
     {
-        transform.position = b.transform.position + new Vector3(0, b.transform.lossyScale.y / 2, 0);
+        transform.position = b.transform.position + new Vector3(0, b.size.y / 2, 0);
     }
 }
