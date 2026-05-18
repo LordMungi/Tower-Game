@@ -37,13 +37,49 @@ public class UIManager : MonoBehaviour
 
     private void OnEnable()
     {
-        
+        UpdateFloorsEvent.OnEventTriggered += UpdateFloorsUI;
+        UpdateStreakEvent.OnEventTriggered += UpdateStreakUI;
+        UpdateScoreEvent.OnEventTriggered += UpdateScoreUI;
+        UpdateLivesEvent.OnEventTriggered += UpdateLivesUI;
     }
 
     private void OnDisable()
     {
-        
+        UpdateFloorsEvent.OnEventTriggered -= UpdateFloorsUI;
+        UpdateStreakEvent.OnEventTriggered -= UpdateStreakUI;
+        UpdateScoreEvent.OnEventTriggered -= UpdateScoreUI;
+        UpdateLivesEvent.OnEventTriggered -= UpdateLivesUI;
     }
 
+    private void UpdateFloorsUI(int floors)
+    {
+        heightText.text = "Floors: " + floors;
+    }
 
+    private void UpdateStreakUI(int streak)
+    {
+        if (streak > 0)
+        {
+            perfectText.gameObject.SetActive(true);
+            perfectText.text = "Perfect! x" + streak;
+        }
+        else
+            perfectText.gameObject.SetActive(false);
+    }
+
+    private void UpdateScoreUI(int score)
+    {
+        scoreText.text = score.ToString();
+    }
+
+    private void UpdateLivesUI(int lives)
+    {
+        while (LiveStack.Count != lives && LiveStack.Count > 0)
+        {
+            if (lives > LiveStack.Count)
+                LiveStack.Push(Instantiate(livesPrefab, livesCanvas.transform));
+            else
+                Destroy(LiveStack.Pop().gameObject);
+        }
+    }
 }

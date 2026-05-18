@@ -233,8 +233,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8b1c938a72b24c4dad62e9ff293060e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
+  config: {fileID: 11400000, guid: 5db6d26be9e062b4ea048c6d963610e3, type: 2}
   BlockCreateEvent: {fileID: 11400000, guid: d92312f82ebb5f643a91350eda07d6cf, type: 2}
   BlockDropEvent: {fileID: 11400000, guid: fee80d922bbbd93478b5944639d0c54a, type: 2}
+  UpdateFloorsEvent: {fileID: 11400000, guid: 6b2748282ddf10a4eb0dbd1972f95146, type: 2}
+  UpdateStreakEvent: {fileID: 11400000, guid: ef328238fd8809242bf1fc801a78dd02, type: 2}
+  UpdateScoreEvent: {fileID: 11400000, guid: 27f4d0001e8bf8f4ca85f79597483f99, type: 2}
+  UpdateLivesEvent: {fileID: 11400000, guid: 440d20af928022f4dab3623cc2cba464, type: 2}
+  BlockSuccessfulLandEvent: {fileID: 11400000, guid: 289ee419bd0366a45a85cbb2d2a84ed5, type: 2}
+  BlockPerfectLandEvent: {fileID: 11400000, guid: 746f366d7bbe11643b389c60c7cf4ecc, type: 2}
+  BlockFailedLandEvent: {fileID: 11400000, guid: 6a835be18b853164c8b6a0082c2fd9a9, type: 2}
+  BlockMissedLandEvent: {fileID: 11400000, guid: e3f1a226be457934686a9b1df95f8bc8, type: 2}
 --- !u!1 &378218476
 GameObject:
   m_ObjectHideFlags: 0
@@ -292,8 +301,8 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 3
-  m_Spacing: 0
-  m_ChildForceExpandWidth: 1
+  m_Spacing: 30
+  m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
   m_ChildControlHeight: 0
