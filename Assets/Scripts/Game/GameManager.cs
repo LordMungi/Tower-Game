@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] GameConfig config;
 
+
     [Header("Broadcast Events")]
     [SerializeField] private EventChannel BlockCreateEvent;
     [SerializeField] private EventChannel BlockDropEvent;

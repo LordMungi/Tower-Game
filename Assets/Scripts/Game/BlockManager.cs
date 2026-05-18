@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class BlockManager : MonoBehaviour
 {
+    [SerializeField] GameConfig gameConfig;
     [SerializeField] private GameObject SpawnerParent;
     [SerializeField] private Block BlockPrefab;
 
@@ -11,7 +12,8 @@ public class BlockManager : MonoBehaviour
     private float topBlockCenter;
     private float topBlockWidth;
 
-    [SerializeField] private float perfectOffset = 0.01f;
+    [Header("Sounds")]
+    [SerializeField] private AudioSource BlockLandSFX;
 
     [Header("Broadcast Events")]
     [SerializeField] private BlockEventChannel BlockSuccessfulLandEvent;
@@ -67,8 +69,9 @@ public class BlockManager : MonoBehaviour
             topBlockCenter = b.transform.position.x;
             topBlockWidth = b.transform.lossyScale.x;
             BlockSuccessfulLandEvent.RaiseEvent(b);
+            BlockLandSFX.Play();
         }
-        else if (offset < perfectOffset)
+        else if (offset < gameConfig.PerfectOffset)
         {
             b.Freeze();
             b.transform.position = new Vector3(topBlockCenter, b.transform.position.y, b.transform.position.z);
@@ -82,6 +85,7 @@ public class BlockManager : MonoBehaviour
             topBlockCenter = b.transform.position.x;
             topBlockWidth = b.transform.lossyScale.x;
             BlockSuccessfulLandEvent.RaiseEvent(b);
+            BlockLandSFX.Play();
         }
         else if (offset > topBlockWidth)
         {

@@ -13,3 +13,6 @@ MonoBehaviour:
   m_Name: GameConfig
   m_EditorClassIdentifier: Assembly-CSharp::GameConfig
   InitialLives: 3
+  ScoreForFloor: 100
+  ScoreForPerfect: 300
+  PerfectOffset: 0.01
