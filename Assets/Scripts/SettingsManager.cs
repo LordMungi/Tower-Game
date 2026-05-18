@@ -1,9 +1,12 @@
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class SettingsManager : MonoBehaviour
 {
     private SettingsManager() { }
     public static SettingsManager instance { get; private set; }
+
+    [SerializeField] private AudioMixer mixer;
 
     private void Awake()
     {
@@ -14,5 +17,39 @@ public class SettingsManager : MonoBehaviour
         }
         else
             Destroy(gameObject);
+    }
+
+    public float GetMixerValue(string group)
+    {
+        mixer.GetFloat(group, out float value);
+        return Mathf.Pow(10f, value / 20f);
+    }
+
+    public void SetMasterVolume(float value)
+    {
+        UpdateAudioMixer("MasterVolume", value);
+    }
+
+    public void SetMusicVolume(float value)
+    {
+        UpdateAudioMixer("MusicVolume", value);
+    }
+
+    public void SetSFXVolume(float value)
+    {
+        UpdateAudioMixer("SFXVolume", value);
+    }
+
+    public void SetUIVolume(float value)
+    {
+        UpdateAudioMixer("UIVolume", value);
+    }
+
+    private void UpdateAudioMixer(string group, float value)
+    {
+        if (value > 0)
+            mixer.SetFloat(group, Mathf.Log10(Mathf.Clamp(value, 0f, 1f)) * 20);
+        else 
+            mixer.SetFloat(group, -144f);
     }
 }

@@ -20,6 +20,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI statsText;
     [Header("Pause")]
     [SerializeField] private Canvas pauseCanvas;
+    [Header("Settings")]
+    [SerializeField] private Canvas settingsCanvas;
+
 
     [Header("Listener Events")]
     [SerializeField] private IntEventChannel UpdateFloorsEvent;
@@ -115,5 +118,18 @@ public class UIManager : MonoBehaviour
     private void HidePauseMenu()
     {
         pauseCanvas.gameObject.SetActive(false);
+        settingsCanvas.gameObject.SetActive(false);
+    }
+
+    public void ShowSettings()
+    {
+        HidePauseMenu();
+        settingsCanvas.gameObject.SetActive(true);
+    }
+
+    public void HideSettings()
+    {
+        settingsCanvas.gameObject.SetActive(false);
+        ShowPauseMenu();
     }
 }
