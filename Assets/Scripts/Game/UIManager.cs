@@ -8,17 +8,23 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameConfig gameConfig;
 
     [Header("Assets")]
+    [Header("HUD")]
+    [SerializeField] private Canvas HUDCanvas;
     [SerializeField] private TextMeshProUGUI heightText;
     [SerializeField] private TextMeshProUGUI perfectText;
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private Canvas livesCanvas;
     [SerializeField] private GameObject livesPrefab;
+    [Header("Game Over")]
+    [SerializeField] private Canvas gameOverCanvas;
+    [SerializeField] private TextMeshProUGUI statsText;
 
     [Header("Listener Events")]
     [SerializeField] private IntEventChannel UpdateFloorsEvent;
     [SerializeField] private IntEventChannel UpdateStreakEvent;
     [SerializeField] private IntEventChannel UpdateScoreEvent;
     [SerializeField] private IntEventChannel UpdateLivesEvent;
+    [SerializeField] private StatsEventChannel GameOverEvent;
 
     private Stack<GameObject> LiveStack;
 
@@ -41,6 +47,7 @@ public class UIManager : MonoBehaviour
         UpdateStreakEvent.OnEventTriggered += UpdateStreakUI;
         UpdateScoreEvent.OnEventTriggered += UpdateScoreUI;
         UpdateLivesEvent.OnEventTriggered += UpdateLivesUI;
+        GameOverEvent.OnEventTriggered += GameOver;
     }
 
     private void OnDisable()
@@ -49,6 +56,7 @@ public class UIManager : MonoBehaviour
         UpdateStreakEvent.OnEventTriggered -= UpdateStreakUI;
         UpdateScoreEvent.OnEventTriggered -= UpdateScoreUI;
         UpdateLivesEvent.OnEventTriggered -= UpdateLivesUI;
+        GameOverEvent.OnEventTriggered -= GameOver;
     }
 
     private void UpdateFloorsUI(int floors)
@@ -81,5 +89,12 @@ public class UIManager : MonoBehaviour
             else
                 Destroy(LiveStack.Pop().gameObject);
         }
+    }
+
+    private void GameOver(Statistics stats)
+    {
+        HUDCanvas.gameObject.SetActive(false);
+        statsText.text = "Highest Streak: " + stats.highestStreak + "\nTower Height: " + stats.towerHeight + "\nScore: " + stats.score;
+        gameOverCanvas.gameObject.SetActive(true);
     }
 }

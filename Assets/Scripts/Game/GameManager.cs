@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private IntEventChannel UpdateStreakEvent;
     [SerializeField] private IntEventChannel UpdateScoreEvent;
     [SerializeField] private IntEventChannel UpdateLivesEvent;
+    [SerializeField] private StatsEventChannel GameOverEvent;
 
     [Header("Listener Events")]
     [SerializeField] private BlockEventChannel BlockSuccessfulLandEvent;
@@ -19,17 +21,16 @@ public class GameManager : MonoBehaviour
     [SerializeField] private BlockEventChannel BlockFailedLandEvent;
     [SerializeField] private BlockEventChannel BlockMissedLandEvent;
 
-    private int towerHeight;
-    private int perfectStreak;
-    private int score;
+    private int towerHeight = 0;
+    private int perfectStreak = 0;
+    private int highestStreak = 0;
+    private int score = 0;
     private int lives;
 
     private void Awake()
     {
-        towerHeight = 0;
-        perfectStreak = 0;
-        score = 0;
         lives = config.InitialLives;
+        UnpauseGame();
     }
     void Start()
     {
@@ -68,6 +69,8 @@ public class GameManager : MonoBehaviour
         UpdateHeight(1);
         UpdateScore(config.ScoreForPerfect);
         perfectStreak += 1;
+        if (perfectStreak > highestStreak)
+            highestStreak = perfectStreak;
         UpdateStreakEvent.RaiseEvent(perfectStreak);
     }
 
@@ -105,7 +108,36 @@ public class GameManager : MonoBehaviour
 
     private void LoseLife()
     {
-        lives--;
+        if (lives > 0)
+            lives--;
+        else
+            GameOver();
         UpdateLivesEvent.RaiseEvent(lives);
+    }
+
+    public void ResetGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void BackToMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
+
+    private void GameOver()
+    {
+        PauseGame();
+        GameOverEvent.RaiseEvent(new Statistics(towerHeight, highestStreak, score));
+    }
+
+    public void PauseGame()
+    {
+        Time.timeScale = 0;
+    }
+
+    public void UnpauseGame()
+    {
+        Time.timeScale = 1;
     }
 }
