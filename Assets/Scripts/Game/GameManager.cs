@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private IntEventChannel UpdateScoreEvent;
     [SerializeField] private IntEventChannel UpdateLivesEvent;
     [SerializeField] private StatsEventChannel GameOverEvent;
+    [SerializeField] private EventChannel PauseGameEvent;
+    [SerializeField] private EventChannel UnpauseGameEvent;
 
     [Header("Listener Events")]
     [SerializeField] private BlockEventChannel BlockSuccessfulLandEvent;
@@ -27,10 +29,14 @@ public class GameManager : MonoBehaviour
     private int score = 0;
     private int lives;
 
+    bool isPlaying = false;
+    bool isPaused = false;
     private void Awake()
     {
         lives = config.InitialLives;
-        UnpauseGame();
+        isPlaying = true;
+        isPaused = false;
+        Time.timeScale = 1;
     }
     void Start()
     {
@@ -56,6 +62,13 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
             BlockDropEvent.RaiseEvent();
+        if (Input.GetKeyDown(KeyCode.Escape) && isPlaying)
+        {
+            if (isPaused)
+                UnpauseGame();
+            else
+                PauseGame();
+        }
     }
 
     private void OnBlockLand(Block b)
@@ -127,17 +140,22 @@ public class GameManager : MonoBehaviour
 
     private void GameOver()
     {
-        PauseGame();
+        Time.timeScale = 0;
+        isPlaying = false;
         GameOverEvent.RaiseEvent(new Statistics(towerHeight, highestStreak, score));
     }
 
     public void PauseGame()
     {
         Time.timeScale = 0;
+        isPaused = true;
+        PauseGameEvent.RaiseEvent();
     }
 
     public void UnpauseGame()
     {
         Time.timeScale = 1;
+        isPaused = false;
+        UnpauseGameEvent.RaiseEvent();
     }
 }

@@ -18,6 +18,8 @@ public class UIManager : MonoBehaviour
     [Header("Game Over")]
     [SerializeField] private Canvas gameOverCanvas;
     [SerializeField] private TextMeshProUGUI statsText;
+    [Header("Pause")]
+    [SerializeField] private Canvas pauseCanvas;
 
     [Header("Listener Events")]
     [SerializeField] private IntEventChannel UpdateFloorsEvent;
@@ -25,6 +27,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private IntEventChannel UpdateScoreEvent;
     [SerializeField] private IntEventChannel UpdateLivesEvent;
     [SerializeField] private StatsEventChannel GameOverEvent;
+    [SerializeField] private EventChannel PauseGameEvent;
+    [SerializeField] private EventChannel UnpauseGameEvent;
 
     private Stack<GameObject> LiveStack;
 
@@ -48,6 +52,8 @@ public class UIManager : MonoBehaviour
         UpdateScoreEvent.OnEventTriggered += UpdateScoreUI;
         UpdateLivesEvent.OnEventTriggered += UpdateLivesUI;
         GameOverEvent.OnEventTriggered += GameOver;
+        PauseGameEvent.OnEventTriggered += ShowPauseMenu;
+        UnpauseGameEvent.OnEventTriggered += HidePauseMenu;
     }
 
     private void OnDisable()
@@ -57,6 +63,9 @@ public class UIManager : MonoBehaviour
         UpdateScoreEvent.OnEventTriggered -= UpdateScoreUI;
         UpdateLivesEvent.OnEventTriggered -= UpdateLivesUI;
         GameOverEvent.OnEventTriggered -= GameOver;
+        PauseGameEvent.OnEventTriggered -= ShowPauseMenu;
+        UnpauseGameEvent.OnEventTriggered -= HidePauseMenu;
+
     }
 
     private void UpdateFloorsUI(int floors)
@@ -96,5 +105,15 @@ public class UIManager : MonoBehaviour
         HUDCanvas.gameObject.SetActive(false);
         statsText.text = "Highest Streak: " + stats.highestStreak + "\nTower Height: " + stats.towerHeight + "\nScore: " + stats.score;
         gameOverCanvas.gameObject.SetActive(true);
+    }
+
+    private void ShowPauseMenu()
+    {
+        pauseCanvas.gameObject.SetActive(true);
+    }
+
+    private void HidePauseMenu()
+    {
+        pauseCanvas.gameObject.SetActive(false);
     }
 }
