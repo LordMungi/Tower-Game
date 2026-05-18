@@ -18,6 +18,8 @@ public class BlockManager : MonoBehaviour
     private int goingToPointIndex = 0;
     private float wobbleIntensity = 0;
     private float wobbleSpeed = 0;
+    private float totalOffset;
+    private List<float> lastBlocksOffset;
 
     [Header("Sounds")]
     [SerializeField] private AudioSource BlockLandSFX;
@@ -42,6 +44,7 @@ public class BlockManager : MonoBehaviour
         WobblePoints = new Vector3[2];
         WobblePoints[0] = Vector3.zero;
         WobblePoints[1] = Vector3.zero;
+        lastBlocksOffset = new List<float>();
     }
     private void OnEnable()
     {
@@ -87,7 +90,8 @@ public class BlockManager : MonoBehaviour
             Destroy(hookedBlock.gameObject);
         hookedBlock = null;
 
-        float offset = Mathf.Abs(topBlockCenter - b.transform.position.x);
+        float absOffset = Mathf.Abs(topBlockCenter - b.transform.position.x);
+
 
         if (TowerBlocks.Count < 1)
         {
@@ -97,7 +101,7 @@ public class BlockManager : MonoBehaviour
             BlockSuccessfulLandEvent.RaiseEvent(b);
             BlockLandSFX.Play();
         }
-        else if (offset < gameConfig.PerfectOffset)
+        else if (absOffset < gameConfig.PerfectOffset)
         {
             b.Freeze();
             AddBlockToTower(b);
@@ -106,7 +110,7 @@ public class BlockManager : MonoBehaviour
             BlockPerfectLandEvent.RaiseEvent(b);
             BlockPerfectSFX.Play();
         }
-        else if (offset < topBlockWidth / 2)
+        else if (absOffset < topBlockWidth / 2)
         {
             b.Freeze();
             AddBlockToTower(b);
@@ -114,7 +118,7 @@ public class BlockManager : MonoBehaviour
             BlockSuccessfulLandEvent.RaiseEvent(b);
             BlockLandSFX.Play();
         }
-        else if (offset > topBlockWidth)
+        else if (absOffset > topBlockWidth)
         {
             b.Fall();
             Destroy(b.gameObject, 2f);
@@ -144,6 +148,11 @@ public class BlockManager : MonoBehaviour
     {
         TowerBlocks.Push(b);
         b.transform.SetParent(TowerParent.transform);
+
+        lastBlocksOffset.Add(Mathf.Abs(topBlockCenter - b.transform.position.x));
+        if (lastBlocksOffset.Count > gameConfig.BlocksCountedForWobble + gameConfig.InitialLives)
+            lastBlocksOffset.RemoveAt(0);
+
         towerHeight++;
     }
 
@@ -155,7 +164,17 @@ public class BlockManager : MonoBehaviour
 
     private void SetTowerWobble()
     {
-        wobbleIntensity = Mathf.Clamp((towerHeight - 1) * 0.01f, 0, gameConfig.TowerMaxWobble);
+        totalOffset = 0;
+        for (int i = 0; i < gameConfig.BlocksCountedForWobble; i++)
+        {
+            int index = lastBlocksOffset.Count - 1 - i;
+            if (index >= 0)
+                totalOffset += lastBlocksOffset[index];
+            else
+                break;
+        }
+
+        wobbleIntensity = Mathf.Clamp((towerHeight - 1) * gameConfig.WobbleScale * totalOffset, 0, gameConfig.TowerMaxWobble);
         wobbleSpeed = Mathf.Clamp(wobbleIntensity, 0, gameConfig.MaxWobbleSpeed);
 
         WobblePoints[0].x = wobbleIntensity;

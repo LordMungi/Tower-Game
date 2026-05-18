@@ -5090,6 +5090,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 166451650705338926, guid: 3b19c1a61716d174597719dd350c0991, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 455235691006012390, guid: 3b19c1a61716d174597719dd350c0991, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1398535301729184372, guid: 3b19c1a61716d174597719dd350c0991, type: 3}
       propertyPath: BlockFailedLandEvent
       value: 
@@ -5098,6 +5106,22 @@ PrefabInstance:
       propertyPath: BlockPerfectLandEvent
       value: 
       objectReference: {fileID: 11400000, guid: 746f366d7bbe11643b389c60c7cf4ecc, type: 2}
+    - target: {fileID: 2541724660349044045, guid: 3b19c1a61716d174597719dd350c0991, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3199963057833741129, guid: 3b19c1a61716d174597719dd350c0991, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4639058232301058869, guid: 3b19c1a61716d174597719dd350c0991, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4935723589124514557, guid: 3b19c1a61716d174597719dd350c0991, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2
+      objectReference: {fileID: 0}
     - target: {fileID: 5390390159131659342, guid: 3b19c1a61716d174597719dd350c0991, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -5141,6 +5165,14 @@ PrefabInstance:
     - target: {fileID: 7270550339210401972, guid: 3b19c1a61716d174597719dd350c0991, type: 3}
       propertyPath: m_Name
       value: Crane
+      objectReference: {fileID: 0}
+    - target: {fileID: 7311147097098376606, guid: 3b19c1a61716d174597719dd350c0991, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7663123129758407578, guid: 3b19c1a61716d174597719dd350c0991, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
