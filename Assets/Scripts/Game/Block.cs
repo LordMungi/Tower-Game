@@ -10,7 +10,7 @@ public class Block : MonoBehaviour
     private void Awake()
     {
         size = model.bounds.size;
-        transform.rotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
+        transform.rotation = Quaternion.Euler(0, Random.Range(-Config.RotationMaxAngle, Config.RotationMaxAngle), 0);
     }
 
     public void Drop()

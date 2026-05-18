@@ -142,7 +142,7 @@ public class BlockManager : MonoBehaviour
     private void SetTopBlockValues()
     {
         topBlockCenter = TowerBlocks.Peek().transform.position.x;
-        topBlockWidth = TowerBlocks.Peek().transform.lossyScale.x;
+        topBlockWidth = TowerBlocks.Peek().size.x;
     }
     private void AddBlockToTower(Block b)
     {

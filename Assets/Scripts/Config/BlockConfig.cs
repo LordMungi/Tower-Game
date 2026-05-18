@@ -4,4 +4,5 @@ using UnityEngine;
 public class BlockConfig : ScriptableObject
 {
     [field: SerializeField] public float MissFallSpeed = 10f;
+    [field: SerializeField] public float RotationMaxAngle = 20f;
 }
