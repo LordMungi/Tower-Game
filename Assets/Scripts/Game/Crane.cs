@@ -3,6 +3,7 @@ using UnityEngine;
 public class Crane : MonoBehaviour
 {
     [SerializeField] private float SPEED = 1f;
+    [SerializeField] Material wallMaterial;
 
     [Header("Listener Events")]
     [SerializeField] private BlockEventChannel BlockPerfectLandEvent;
@@ -36,6 +37,7 @@ public class Crane : MonoBehaviour
         {
             transform.position = Vector3.Lerp(transform.position, targetPos, Time.deltaTime * SPEED);
         }
+        wallMaterial.mainTextureOffset = new Vector2(0, transform.position.y) / wallMaterial.mainTextureScale.y;
     }
 
     void SetTargetPositionFromBlock(Block b)
