@@ -12,10 +12,12 @@ public class BlockManager : MonoBehaviour
     private Block hookedBlock;
     private float topBlockCenter;
     private float topBlockWidth;
+    private float towerHeight;
 
     private Vector3[] WobblePoints;
     private int goingToPointIndex = 0;
-    private float wobbleIntensity = 1;
+    private float wobbleIntensity = 0;
+    private float wobbleSpeed = 0;
 
     [Header("Sounds")]
     [SerializeField] private AudioSource BlockLandSFX;
@@ -56,7 +58,7 @@ public class BlockManager : MonoBehaviour
 
     private void Update()
     {
-        TowerParent.transform.position = Vector3.MoveTowards(TowerParent.transform.position, WobblePoints[goingToPointIndex], Time.deltaTime * gameConfig.TowerWobbleSpeed);
+        TowerParent.transform.position = Vector3.MoveTowards(TowerParent.transform.position, WobblePoints[goingToPointIndex], Time.deltaTime * wobbleSpeed);
         if (TowerParent.transform.position.x == WobblePoints[goingToPointIndex].x)
             goingToPointIndex = goingToPointIndex == 0 ? 1 : 0;
     }
@@ -79,21 +81,13 @@ public class BlockManager : MonoBehaviour
     private void LandBlock(Block b)
     {
         if (TowerBlocks.Count > 0)
-        {
-            topBlockCenter = TowerBlocks.Peek().transform.position.x;
-            topBlockWidth = TowerBlocks.Peek().transform.lossyScale.x;
-        }
+            SetTopBlockValues();
 
         if (hookedBlock != b)
             Destroy(hookedBlock.gameObject);
         hookedBlock = null;
 
         float offset = Mathf.Abs(topBlockCenter - b.transform.position.x);
-        Debug.Log("TBC: " + topBlockCenter + " BPosX: " + b.transform.position + "Offset: " + offset);
-
-
-        WobblePoints[0].x = wobbleIntensity;
-        WobblePoints[1].x = -wobbleIntensity;
 
         if (TowerBlocks.Count < 1)
         {
@@ -132,17 +126,39 @@ public class BlockManager : MonoBehaviour
         {
             Destroy(b.gameObject);
             if (TowerBlocks.Count > 1)
-                Destroy(TowerBlocks.Pop().gameObject);
+                RemoveBlockFromTower();
 
             BlockFailedLandEvent.RaiseEvent(TowerBlocks.Peek());
             BlockFailSFX.Play();
         }
+        SetTowerWobble();
+
         CreateBlock();
     }
-
+    private void SetTopBlockValues()
+    {
+        topBlockCenter = TowerBlocks.Peek().transform.position.x;
+        topBlockWidth = TowerBlocks.Peek().transform.lossyScale.x;
+    }
     private void AddBlockToTower(Block b)
     {
         TowerBlocks.Push(b);
         b.transform.SetParent(TowerParent.transform);
+        towerHeight++;
+    }
+
+    private void RemoveBlockFromTower()
+    {
+        Destroy(TowerBlocks.Pop().gameObject);
+        towerHeight--;
+    }
+
+    private void SetTowerWobble()
+    {
+        wobbleIntensity = Mathf.Clamp((towerHeight - 1) * 0.01f, 0, gameConfig.TowerMaxWobble);
+        wobbleSpeed = Mathf.Clamp(wobbleIntensity, 0, gameConfig.MaxWobbleSpeed);
+
+        WobblePoints[0].x = wobbleIntensity;
+        WobblePoints[1].x = -wobbleIntensity;
     }
 }
