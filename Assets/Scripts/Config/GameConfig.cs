@@ -7,5 +7,7 @@ public class GameConfig : ScriptableObject
     [field: SerializeField] public int ScoreForFloor = 100;
     [field: SerializeField] public int ScoreForPerfect = 300;
     [field: SerializeField] public float PerfectOffset = 0.01f;
+    [field: SerializeField] public float TowerMaxWobble = 5f;
+
 
 }

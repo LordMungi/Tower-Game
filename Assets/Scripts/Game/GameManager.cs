@@ -58,7 +58,12 @@ public class GameManager : MonoBehaviour
         BlockFailedLandEvent.OnEventTriggered -= OnBlockFail;
         BlockMissedLandEvent.OnEventTriggered -= OnBlockMiss;
     }
-
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(transform.position + new Vector3(config.TowerMaxWobble, 0, 0), 0.30f);
+        Gizmos.DrawSphere(transform.position + new Vector3(-config.TowerMaxWobble, 0, 0), 0.30f);
+    }
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
