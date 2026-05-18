@@ -5,11 +5,16 @@ public class RackSpawner : MonoBehaviour
 {
     [SerializeField] GameObject[] RackPrefabs;
 
-    [SerializeField] GameObject firstRack;
+    [SerializeField] Transform parent;
     [SerializeField] Renderer firstRackMesh;
     [SerializeField] int racksPerRow = 5;
+    [SerializeField] int maxActiveRows = 4;
+    [SerializeField] int racksUntilDeletion = 2;
     [SerializeField] float horizontalSpacing = 1f;
     [SerializeField] float verticalSpacing = 1f;
+
+    [Header("Listener Events")]
+    [SerializeField] private BlockEventChannel BlockLandEvent; 
 
     private Queue<GameObject> racks;
     private Vector3 rackSize;
@@ -20,40 +25,53 @@ public class RackSpawner : MonoBehaviour
         racks = new Queue<GameObject>();
         rackSize = firstRackMesh.bounds.size;
 
-        CreateRow(1);
-        CreateRow();
+        for (int i = 0; i < maxActiveRows; i++)
+           CreateRow(); 
+    }
+    private void OnEnable()
+    {
+        BlockLandEvent.OnEventTriggered += CheckForRowcreation;
+    }
+    private void OnDisable()
+    {
+        BlockLandEvent.OnEventTriggered -= CheckForRowcreation;
     }
 
     private void OnDrawGizmos()
     {
         if (rackSize == Vector3.zero)
             rackSize = firstRackMesh.bounds.size;
-        Vector3 drawPos = firstRack.transform.position + rackSize / 2;
+        Vector3 drawPos = parent.transform.position + rackSize / 2;
 
         Gizmos.color = new Color(0, 0, 1, 0.3f);
-        for (int i = 1; i < racksPerRow; i++)
-        {
-            Gizmos.DrawCube( drawPos + new Vector3((rackSize.x + horizontalSpacing) * i, 0, 0), rackSize);
-        }
         for (int i = 0; i < racksPerRow; i++)
         {
+            Gizmos.DrawCube( drawPos + new Vector3((rackSize.x + horizontalSpacing) * i, 0, 0), rackSize);
             Gizmos.DrawCube(drawPos + new Vector3((rackSize.x + horizontalSpacing) * i, (rackSize.y + verticalSpacing), 0), rackSize);
         }
     }
     void CreateRow()
     {
-        CreateRow(0);
-    }
-    void CreateRow(int from)
-    {
-        for (int i = from; i < racksPerRow; i++)
+        for (int i = 0; i < racksPerRow; i++)
         {
-            GameObject newRack = Instantiate(RackPrefabs[0], firstRack.transform);
+            GameObject newRack = Instantiate(RackPrefabs[0], parent.transform);
             newRack.transform.position += new Vector3((rackSize.x + horizontalSpacing) * i, (rackSize.y + verticalSpacing) * row, 0);
             racks.Enqueue(newRack);
         }
         row++;
+
+        if (row > maxActiveRows)
+        {
+            for (int i = 0; i < racksPerRow; i++)
+            {
+                Destroy(racks.Dequeue().gameObject);
+            }
+        }
     }
 
-
+    private void CheckForRowcreation(Block b)
+    {
+        if (b.transform.position.y > racks.Peek().transform.position.y + rackSize.y * racksUntilDeletion)
+            CreateRow();
+    }
 }
