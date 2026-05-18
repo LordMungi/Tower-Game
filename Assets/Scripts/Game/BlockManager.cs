@@ -12,6 +12,10 @@ public class BlockManager : MonoBehaviour
     private float topBlockCenter;
     private float topBlockWidth;
 
+    private Vector3[] WobblePoints;
+    private int goingToPointIndex = 0;
+    private float wobbleIntensity = 1;
+
     [Header("Sounds")]
     [SerializeField] private AudioSource BlockLandSFX;
     [SerializeField] private AudioSource BlockPerfectSFX;
@@ -32,6 +36,9 @@ public class BlockManager : MonoBehaviour
     private void Awake()
     {
         TowerBlocks = new Stack<Block>();
+        WobblePoints = new Vector3[2];
+        WobblePoints[0] = Vector3.zero;
+        WobblePoints[1] = Vector3.zero;
     }
     private void OnEnable()
     {
@@ -45,6 +52,14 @@ public class BlockManager : MonoBehaviour
         BlockDropEvent.OnEventTriggered -= DropBlock;
         BlockLandEvent.OnEventTriggered -= LandBlock;
     }
+
+    private void Update()
+    {
+        transform.position = Vector3.MoveTowards(transform.position, WobblePoints[goingToPointIndex], Time.deltaTime * gameConfig.TowerWobbleSpeed);
+        if (transform.position.x == WobblePoints[goingToPointIndex].x)
+            goingToPointIndex = goingToPointIndex == 0 ? 1 : 0;
+    }
+
     private void CreateBlock()
     {
         if (!hookedBlock)
@@ -65,6 +80,9 @@ public class BlockManager : MonoBehaviour
     private void LandBlock(Block b)
     {
         float offset = Mathf.Abs(topBlockCenter - b.transform.position.x);
+
+        WobblePoints[0].x = wobbleIntensity;
+        WobblePoints[1].x = -wobbleIntensity;
 
         if (TowerBlocks.Count <= 1)
         {

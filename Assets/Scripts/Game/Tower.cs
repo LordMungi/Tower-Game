@@ -23,7 +23,6 @@ public class Tower : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("A!");
         if (collision.gameObject.TryGetComponent<Block>(out Block b))
         {
             BlockLandEvent.RaiseEvent(b);
