@@ -159,6 +159,7 @@ public class BlockManager : MonoBehaviour
     private void RemoveBlockFromTower()
     {
         Destroy(TowerBlocks.Pop().gameObject);
+        lastBlocksOffset.Remove(lastBlocksOffset.Count - 1);
         towerHeight--;
     }
 

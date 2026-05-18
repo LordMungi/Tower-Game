@@ -15,6 +15,8 @@ MonoBehaviour:
   InitialLives: 3
   ScoreForFloor: 100
   ScoreForPerfect: 300
+  BlocksCountedForWobble: 5
   PerfectOffset: 0.03
   TowerMaxWobble: 2.5
-  TowerWobbleSpeed: 2
+  MaxWobbleSpeed: 1
+  WobbleScale: 0.03
