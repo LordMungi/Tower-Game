@@ -88,9 +88,6 @@ public class BlockManager : MonoBehaviour
             Destroy(hookedBlock.gameObject);
         hookedBlock = null;
 
-        TowerBlocks.Push(b);
-        b.transform.SetParent(TowerParent.transform);
-
         float offset = Mathf.Abs(topBlockCenter - b.transform.position.x);
         Debug.Log("TBC: " + topBlockCenter + " BPosX: " + b.transform.position + "Offset: " + offset);
 
@@ -98,15 +95,19 @@ public class BlockManager : MonoBehaviour
         WobblePoints[0].x = wobbleIntensity;
         WobblePoints[1].x = -wobbleIntensity;
 
-        if (TowerBlocks.Count <= 1)
+        if (TowerBlocks.Count < 1)
         {
             b.Freeze();
+            AddBlockToTower(b);
+
             BlockSuccessfulLandEvent.RaiseEvent(b);
             BlockLandSFX.Play();
         }
         else if (offset < gameConfig.PerfectOffset)
         {
             b.Freeze();
+            AddBlockToTower(b);
+
             b.transform.position = new Vector3(topBlockCenter, b.transform.position.y, b.transform.position.z);
             BlockPerfectLandEvent.RaiseEvent(b);
             BlockPerfectSFX.Play();
@@ -114,24 +115,34 @@ public class BlockManager : MonoBehaviour
         else if (offset < topBlockWidth / 2)
         {
             b.Freeze();
+            AddBlockToTower(b);
+
             BlockSuccessfulLandEvent.RaiseEvent(b);
             BlockLandSFX.Play();
         }
         else if (offset > topBlockWidth)
         {
             b.Fall();
-            Destroy(TowerBlocks.Pop().gameObject, 2f);
+            Destroy(b.gameObject, 2f);
+
             BlockMissedLandEvent.RaiseEvent(b);
             BlockMissSFX.Play();
         }
         else
         {
-            Destroy(TowerBlocks.Pop().gameObject);
+            Destroy(b.gameObject);
             if (TowerBlocks.Count > 1)
                 Destroy(TowerBlocks.Pop().gameObject);
+
             BlockFailedLandEvent.RaiseEvent(TowerBlocks.Peek());
             BlockFailSFX.Play();
         }
         CreateBlock();
+    }
+
+    private void AddBlockToTower(Block b)
+    {
+        TowerBlocks.Push(b);
+        b.transform.SetParent(TowerParent.transform);
     }
 }
