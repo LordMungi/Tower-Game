@@ -5,6 +5,7 @@ public class BlockManager : MonoBehaviour
 {
     [SerializeField] GameConfig gameConfig;
     [SerializeField] private GameObject SpawnerParent;
+    [SerializeField] private GameObject TowerParent;
     [SerializeField] private Block BlockPrefab;
 
     private Stack<Block> TowerBlocks;
@@ -55,8 +56,8 @@ public class BlockManager : MonoBehaviour
 
     private void Update()
     {
-        transform.position = Vector3.MoveTowards(transform.position, WobblePoints[goingToPointIndex], Time.deltaTime * gameConfig.TowerWobbleSpeed);
-        if (transform.position.x == WobblePoints[goingToPointIndex].x)
+        TowerParent.transform.position = Vector3.MoveTowards(TowerParent.transform.position, WobblePoints[goingToPointIndex], Time.deltaTime * gameConfig.TowerWobbleSpeed);
+        if (TowerParent.transform.position.x == WobblePoints[goingToPointIndex].x)
             goingToPointIndex = goingToPointIndex == 0 ? 1 : 0;
     }
 
@@ -72,14 +73,27 @@ public class BlockManager : MonoBehaviour
         {
             hookedBlock.transform.SetParent(transform);
             hookedBlock.Drop();
-            TowerBlocks.Push(hookedBlock);
-            hookedBlock = null;
         }
     }
 
     private void LandBlock(Block b)
     {
+        if (TowerBlocks.Count > 0)
+        {
+            topBlockCenter = TowerBlocks.Peek().transform.position.x;
+            topBlockWidth = TowerBlocks.Peek().transform.lossyScale.x;
+        }
+
+        if (hookedBlock != b)
+            Destroy(hookedBlock.gameObject);
+        hookedBlock = null;
+
+        TowerBlocks.Push(b);
+        b.transform.SetParent(TowerParent.transform);
+
         float offset = Mathf.Abs(topBlockCenter - b.transform.position.x);
+        Debug.Log("TBC: " + topBlockCenter + " BPosX: " + b.transform.position + "Offset: " + offset);
+
 
         WobblePoints[0].x = wobbleIntensity;
         WobblePoints[1].x = -wobbleIntensity;
@@ -87,8 +101,6 @@ public class BlockManager : MonoBehaviour
         if (TowerBlocks.Count <= 1)
         {
             b.Freeze();
-            topBlockCenter = b.transform.position.x;
-            topBlockWidth = b.transform.lossyScale.x;
             BlockSuccessfulLandEvent.RaiseEvent(b);
             BlockLandSFX.Play();
         }
@@ -96,16 +108,12 @@ public class BlockManager : MonoBehaviour
         {
             b.Freeze();
             b.transform.position = new Vector3(topBlockCenter, b.transform.position.y, b.transform.position.z);
-            topBlockCenter = b.transform.position.x;
-            topBlockWidth = b.transform.lossyScale.x;
             BlockPerfectLandEvent.RaiseEvent(b);
             BlockPerfectSFX.Play();
         }
         else if (offset < topBlockWidth / 2)
         {
             b.Freeze();
-            topBlockCenter = b.transform.position.x;
-            topBlockWidth = b.transform.lossyScale.x;
             BlockSuccessfulLandEvent.RaiseEvent(b);
             BlockLandSFX.Play();
         }
