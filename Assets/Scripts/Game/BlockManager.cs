@@ -69,7 +69,10 @@ public class BlockManager : MonoBehaviour
     private void CreateBlock()
     {
         if (!hookedBlock)
+        {
             hookedBlock = Instantiate(BlockPrefab, SpawnerParent.transform);
+            hookedBlock.transform.position -= new Vector3(0, hookedBlock.size.y / 2, 0);
+        }
     }
 
     private void DropBlock()
