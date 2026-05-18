@@ -14,6 +14,9 @@ public class BlockManager : MonoBehaviour
 
     [Header("Sounds")]
     [SerializeField] private AudioSource BlockLandSFX;
+    [SerializeField] private AudioSource BlockPerfectSFX;
+    [SerializeField] private AudioSource BlockFailSFX;
+    [SerializeField] private AudioSource BlockMissSFX;
 
     [Header("Broadcast Events")]
     [SerializeField] private BlockEventChannel BlockSuccessfulLandEvent;
@@ -78,6 +81,7 @@ public class BlockManager : MonoBehaviour
             topBlockCenter = b.transform.position.x;
             topBlockWidth = b.transform.lossyScale.x;
             BlockPerfectLandEvent.RaiseEvent(b);
+            BlockPerfectSFX.Play();
         }
         else if (offset < topBlockWidth / 2)
         {
@@ -92,6 +96,7 @@ public class BlockManager : MonoBehaviour
             b.Fall();
             Destroy(TowerBlocks.Pop().gameObject, 2f);
             BlockMissedLandEvent.RaiseEvent(b);
+            BlockMissSFX.Play();
         }
         else
         {
@@ -99,6 +104,7 @@ public class BlockManager : MonoBehaviour
             if (TowerBlocks.Count > 1)
                 Destroy(TowerBlocks.Pop().gameObject);
             BlockFailedLandEvent.RaiseEvent(TowerBlocks.Peek());
+            BlockFailSFX.Play();
         }
         CreateBlock();
     }
