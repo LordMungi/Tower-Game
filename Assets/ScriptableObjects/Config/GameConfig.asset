@@ -17,3 +17,4 @@ MonoBehaviour:
   ScoreForPerfect: 300
   PerfectOffset: 0.03
   TowerMaxWobble: 2.5
+  TowerWobbleSpeed: 2
