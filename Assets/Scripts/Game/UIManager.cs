@@ -13,6 +13,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI heightText;
     [SerializeField] private TextMeshProUGUI perfectText;
     [SerializeField] private TextMeshProUGUI scoreText;
+    [SerializeField] private TextMeshProUGUI highscoreText;
     [SerializeField] private Canvas livesCanvas;
     [SerializeField] private GameObject livesPrefab;
     [Header("Game Over")]
@@ -28,6 +29,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private IntEventChannel UpdateFloorsEvent;
     [SerializeField] private IntEventChannel UpdateStreakEvent;
     [SerializeField] private IntEventChannel UpdateScoreEvent;
+    [SerializeField] private IntEventChannel UpdateHighscoreEvent;
     [SerializeField] private IntEventChannel UpdateLivesEvent;
     [SerializeField] private StatsEventChannel GameOverEvent;
     [SerializeField] private EventChannel PauseGameEvent;
@@ -53,6 +55,7 @@ public class UIManager : MonoBehaviour
         UpdateFloorsEvent.OnEventTriggered += UpdateFloorsUI;
         UpdateStreakEvent.OnEventTriggered += UpdateStreakUI;
         UpdateScoreEvent.OnEventTriggered += UpdateScoreUI;
+        UpdateHighscoreEvent.OnEventTriggered += UpdateHighscoreUI;
         UpdateLivesEvent.OnEventTriggered += UpdateLivesUI;
         GameOverEvent.OnEventTriggered += GameOver;
         PauseGameEvent.OnEventTriggered += ShowPauseMenu;
@@ -64,6 +67,7 @@ public class UIManager : MonoBehaviour
         UpdateFloorsEvent.OnEventTriggered -= UpdateFloorsUI;
         UpdateStreakEvent.OnEventTriggered -= UpdateStreakUI;
         UpdateScoreEvent.OnEventTriggered -= UpdateScoreUI;
+        UpdateHighscoreEvent.OnEventTriggered -= UpdateHighscoreUI;
         UpdateLivesEvent.OnEventTriggered -= UpdateLivesUI;
         GameOverEvent.OnEventTriggered -= GameOver;
         PauseGameEvent.OnEventTriggered -= ShowPauseMenu;
@@ -91,7 +95,10 @@ public class UIManager : MonoBehaviour
     {
         scoreText.text = score.ToString();
     }
-
+    private void UpdateHighscoreUI(int highscore)
+    {
+        highscoreText.text = highscore.ToString();
+    }
     private void UpdateLivesUI(int lives)
     {
         while (LiveStack.Count != lives && LiveStack.Count > 0)

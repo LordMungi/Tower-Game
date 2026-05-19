@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private IntEventChannel UpdateFloorsEvent;
     [SerializeField] private IntEventChannel UpdateStreakEvent;
     [SerializeField] private IntEventChannel UpdateScoreEvent;
+    [SerializeField] private IntEventChannel UpdateHighcoreEvent;
     [SerializeField] private IntEventChannel UpdateLivesEvent;
     [SerializeField] private StatsEventChannel GameOverEvent;
     [SerializeField] private EventChannel PauseGameEvent;
@@ -29,6 +30,7 @@ public class GameManager : MonoBehaviour
     private int highestStreak = 0;
     private int score = 0;
     private int lives;
+    private int highScore = 0;
 
     bool isPlaying = false;
     bool isPaused = false;
@@ -38,10 +40,12 @@ public class GameManager : MonoBehaviour
         isPlaying = true;
         isPaused = false;
         Time.timeScale = 1;
+        highScore = PlayerPrefs.GetInt("Highscore");
     }
     void Start()
     {
         BlockCreateEvent.RaiseEvent();
+        UpdateHighcoreEvent.RaiseEvent(highScore);
     }
 
     private void OnEnable()
@@ -117,6 +121,12 @@ public class GameManager : MonoBehaviour
     {
         score += addition;
         UpdateScoreEvent.RaiseEvent(score);
+
+        if (score > highScore)
+        {
+            highScore = score;
+            UpdateHighcoreEvent.RaiseEvent(highScore);
+        }
     }
 
     private void RemoveStreak()
@@ -148,6 +158,8 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0;
         isPlaying = false;
+        PlayerPrefs.SetInt("Highscore", highScore);
+        PlayerPrefs.Save();
         GameOverEvent.RaiseEvent(new Statistics(towerHeight, highestStreak, score));
     }
 
