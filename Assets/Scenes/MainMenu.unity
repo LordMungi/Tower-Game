@@ -3238,6 +3238,7 @@ MonoBehaviour:
   mainMenuCanvas: {fileID: 1407969155}
   configCanvas: {fileID: 1711747891}
   creditsCanvas: {fileID: 686333703}
+  exitButton: {fileID: 1787896487}
 --- !u!4 &920723006
 Transform:
   m_ObjectHideFlags: 0

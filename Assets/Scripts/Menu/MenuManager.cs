@@ -7,6 +7,14 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private Canvas configCanvas;
     [SerializeField] private Canvas creditsCanvas;
 
+    [SerializeField] private GameObject exitButton;
+
+    private void Awake()
+    {
+#if UNITY_WEBGL
+        exitButton.SetActive(false);
+#endif
+    }
     public void LoadGame()
     {
         SceneManager.LoadScene("Game");
