@@ -1,5 +1,12 @@
 # Light Freight Warehouse
-Desarrollo II TP02
+You are the one in charge a whole warehouse of shipments. Use your trusty Freight Drone to organize the boxes into the biggest tower you can handle. But be careful, it's easy to lose balance!
+
+## How to Play
+Press SPACE to drop boxes.
+
+Aim for a PERFECT STREAK! 
+
+You have 3 lives: lose them all, and its Game Over
 
 ### Play online on Itch.io:
 https://lordmungi.itch.io/warehouse
